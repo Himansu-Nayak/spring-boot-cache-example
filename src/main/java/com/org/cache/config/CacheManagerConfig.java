@@ -4,20 +4,28 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.CaffeineSpec;
 import com.github.benmanes.caffeine.cache.RemovalCause;
 import com.github.benmanes.caffeine.cache.RemovalListener;
+import io.prometheus.client.cache.caffeine.CacheMetricsCollector;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class CacheManagerConfig {
 
+    public static final String CACHE_1 = "Test1" + UUID.randomUUID().toString();
+    public static final String CACHE_2 = "Test2" + UUID.randomUUID().toString();
+
     @Bean
     public CacheManager cacheManager() {
         String specAsString = "initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats";
-        CaffeineCacheManager cacheManager = new CaffeineCacheManager("AIRCRAFTS", "SECOND_CACHE");
+        CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
+        cacheMetrics.addCache(CACHE_1, caffeineCacheBuilder().build());
+
+        CaffeineCacheManager cacheManager = new CaffeineCacheManager(CACHE_1, CACHE_2);
         cacheManager.setAllowNullValues(false);
         //cacheManager.setCacheSpecification(specAsString);
         //cacheManager.setCaffeineSpec(caffeineSpec());

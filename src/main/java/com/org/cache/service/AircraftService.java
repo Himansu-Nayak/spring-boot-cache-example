@@ -1,12 +1,11 @@
 package com.org.cache.service;
 
-import com.org.cache.AircraftRepository;
-import com.org.cache.entity.Aircraft;
+import com.org.cache.ProductRepository;
+import com.org.cache.entity.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.*;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,52 +13,52 @@ import org.springframework.stereotype.Component;
 public class AircraftService {
 
     private static final Logger logger = LoggerFactory.getLogger(AircraftService.class);
-    private final AircraftRepository template;
-    private final String mongoCollection = "aircraft";
+    private final ProductRepository template;
+    private final String mongoCollection = "Product";
 
     @Autowired
-    public AircraftService(AircraftRepository template) {
+    public AircraftService(ProductRepository template) {
         this.template = template;
     }
 
     @Cacheable(unless = "#result == null")
-    public Aircraft getAircraftByModelName(String modelName) {
+    public Product getAircraftByModelName(String modelName) {
         logger.info("Executing getAircraftByModelName for model:{} \tCache MISS!", modelName);
         slowDownForDemo();
 //        Query query = new Query(Critzeria.where("model").is(modelName));
-//        return template.findOne(query, Aircraft.class, mongoCollection);
+//        return template.findOne(query, Product.class, mongoCollection);
         return null;
     }
 
-    @CachePut(key = "#aircraft.model", condition = "#aircraft.topSpeed > 0", unless = "#result == null")
-    public Aircraft createAircraft(Aircraft aircraft) {
-        logger.info("Executing createAircraft, model:{}", aircraft.getModel());
+    @CachePut(key = "#Product.model", condition = "#Product.topSpeed > 0", unless = "#result == null")
+    public Product createAircraft(Product Product) {
+        logger.info("Executing createAircraft, model:{}", Product.getDescription());
 //        try {
-//            template.insert(aircraft, mongoCollection);
+//            template.insert(Product, mongoCollection);
 //        } catch (DuplicateKeyException dke) {
 //            //OK for demo
 //        }
 //        return template.findOne(
-//                new Query(Criteria.where("model").is(aircraft.getModel())),
-//                Aircraft.class, mongoCollection);//has id
+//                new Query(Criteria.where("model").is(Product.getModel())),
+//                Product.class, mongoCollection);//has id
         return null;
     }
 
-    @CacheEvict(key = "#aircraft.model")
-    public void updateAircraft(Aircraft aircraft) {
+    @CacheEvict(key = "#Product.model")
+    public void updateAircraft(Product Product) {
         logger.info("Executing updateAircraft, model:{} topSpeed: {} Cache Evict!",
-                aircraft.getModel(), aircraft.getTopSpeed());
+                Product.getDescription(), Product.getPrice());
         try {
-//            template.save(aircraft, mongoCollection);
-        } catch (DuplicateKeyException dke) {
+//            template.save(Product, mongoCollection);
+        } catch (Exception dke) {
             //OK for demo
         }
     }
 
-    @CacheEvict(key = "#aircraft.model")
-    public void removeAircraft(Aircraft aircraft) {
-        logger.info("Executing removeAircraft, model:{} \tCache Evict!", aircraft.getModel());
-//        template.remove(aircraft, mongoCollection);
+    @CacheEvict(key = "#Product.model")
+    public void removeAircraft(Product Product) {
+        logger.info("Executing removeAircraft, model:{} \tCache Evict!", Product.getDescription());
+//        template.remove(Product, mongoCollection);
     }
 
     @Caching(evict = {
