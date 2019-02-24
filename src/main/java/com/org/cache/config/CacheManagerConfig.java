@@ -2,6 +2,7 @@ package com.org.cache.config;
 
 import com.github.benmanes.caffeine.cache.*;
 import io.prometheus.client.cache.caffeine.CacheMetricsCollector;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Configuration
 public class CacheManagerConfig {
 
@@ -22,7 +24,6 @@ public class CacheManagerConfig {
         String specAsString = "initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats";
         CacheMetricsCollector cacheMetrics = new CacheMetricsCollector().register();
         cacheMetrics.addCache(CUSTOMER_CACHE, customerCache());
-
         CaffeineCacheManager cacheManager = new CaffeineCacheManager(CUSTOMER_CACHE, CACHE_2);
         cacheManager.setAllowNullValues(false);
         //cacheManager.setCacheSpecification(specAsString);
@@ -45,9 +46,8 @@ public class CacheManagerConfig {
     Caffeine<Object, Object> caffeineCacheBuilder() {
         return Caffeine.newBuilder()
                 .initialCapacity(100)
-                .maximumSize(150)
-                .expireAfterWrite(5, TimeUnit.MINUTES)
-                .weakKeys()
+                .maximumSize(10000)
+                .expireAfterAccess(1, TimeUnit.DAYS)
                 .removalListener(new CacheKeyRemovalListener())
                 .recordStats();
     }
@@ -61,8 +61,7 @@ public class CacheManagerConfig {
 
         @Override
         public void onRemoval(Object key, Object value, RemovalCause cause) {
-            System.out.format("removal listener called with key [%s], cause [%s], evicted [%S]\n",
-                    key, cause.toString(), cause.wasEvicted());
+            log.info("key [ {} ] was evicted [ {} ] due to [ {} ]", key, cause.wasEvicted(), cause.toString());
         }
     }
 

@@ -94,15 +94,20 @@ public class CustomerServiceImpl implements CustomerService {
     public void populateCustomerCache() {
         List<Customer> customers = customerRepository.findAll();
         if(!isEmpty(customers)) {
-            Cache customerCache = cacheManager.getCache(CUSTOMER_CACHE);
+            Cache customerCache = getCache(CUSTOMER_CACHE);
             customerCache.put(customers.get(0).getId(), customers.get(0));
             customers.stream().forEach(i -> customerCache.put(i.getId(), i));
         }
+
     }
 
     @Override
     public Customer getCustomer(String id) {
-        ValueWrapper valueWrapper = cacheManager.getCache(CUSTOMER_CACHE).get(id);
+        ValueWrapper valueWrapper = getCache(CUSTOMER_CACHE).get(id);
         return valueWrapper != null ? (Customer) valueWrapper.get() : null;
+    }
+
+    private Cache getCache(String cache) {
+        return cacheManager.getCache(cache);
     }
 }

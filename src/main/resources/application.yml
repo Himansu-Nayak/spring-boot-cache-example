@@ -1,6 +1,11 @@
+server:
+  port: 8080
 spring:
   jpa:
     properties:
+      hibernate:
+        format_sql: true
+        generate_statistics: true
       dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
@@ -22,4 +27,14 @@ spring:
     sql-migration-suffixes: .sql
     out-of-order: false
     validate-on-migrate: true
-
+  cache:
+    caffeine:
+    #spec: 'initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats'
+cron:
+  expression:
+      customer: '* 0/1 * * * ?'
+management:
+  endpoints:
+    web:
+      exposure:
+        include: heapdump,flyway,loggers,prometheus,threaddump,info,metrics,health
