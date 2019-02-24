@@ -1,48 +1,30 @@
-package org.baeldung.caching.example;
+package com.org.cache.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Data
+@Entity
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "customer")
 public class Customer {
 
-    private int id;
-    private String name;
-    private String address;
+    @Id
+    private String id;
 
-    public Customer() {
-        super();
-    }
+    @Column(name = "first_name")
+    private String firstName;
 
-    public Customer(final String name, final String address) {
-        this.name = name;
-        this.address = address;
-    }
-
-    //
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(final int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(final String address) {
-        this.address = address;
-    }
-
-    public void setCustomerAddress(final String address) {
-        this.address = name + "," + address;
-    }
+    @Column(name = "last_name")
+    private String lastName;
 
 }
