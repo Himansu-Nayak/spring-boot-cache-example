@@ -2,6 +2,7 @@
 package com.org.cache.service.impl;
 
 import com.org.cache.entity.Customer;
+import com.org.cache.enums.Direction;
 import com.org.cache.repository.CustomerRepository;
 import com.org.cache.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
@@ -103,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findDistinctCustomer() {
-        return customerRepository.findDistinctLastNameByOrderByCreatedAtDesc();
+        return customerRepository.findDistinctCustomer();
     }
 
     @Override

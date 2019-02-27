@@ -26,7 +26,7 @@ spring:
     sql-migration-separator: _
     sql-migration-suffixes: .sql
     out-of-order: false
-    validate-on-migrate: true
+    validate-on-migrate: false
   cache:
     caffeine:
     #spec: 'initialCapacity=100,maximumSize=500,expireAfterAccess=5m,recordStats'
