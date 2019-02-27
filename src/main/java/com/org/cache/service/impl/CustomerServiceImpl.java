@@ -102,6 +102,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> findDistinctCustomer() {
+        return customerRepository.findDistinctLastNameByOrderByCreatedAtDesc();
+    }
+
+    @Override
     public Customer getCustomer(String id) {
         ValueWrapper valueWrapper = getCache(CUSTOMER_CACHE).get(id);
         return valueWrapper != null ? (Customer) valueWrapper.get() : null;

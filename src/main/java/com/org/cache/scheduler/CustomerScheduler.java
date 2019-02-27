@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -34,6 +35,7 @@ public class CustomerScheduler {
     @Scheduled(fixedRate = 2000)
     public void scheduleTaskWithFixedRate() {
         logger.info("Fixed Rate Task :: Execution Time - {}", dateTimeFormatter.format(LocalDateTime.now()) );
+        List<Customer> customers = customerService.findDistinctCustomer();
     }
 
     @Scheduled(fixedDelay = 2000)

@@ -6,6 +6,8 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 
+import java.util.List;
+
 public interface CustomerService {
 
     @Cacheable(value = "addresses", key = "#customer.id")
@@ -28,6 +30,8 @@ public interface CustomerService {
     String getLastName5(Customer customer);
 
     void populateCustomerCache();
+
+    List<Customer> findDistinctCustomer();
 
     Customer getCustomer(String id);
 

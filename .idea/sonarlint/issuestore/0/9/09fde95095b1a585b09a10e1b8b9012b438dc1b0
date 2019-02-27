@@ -1,15 +1,0 @@
-
-isquid:CommentedOutCodeLine-"<This block of commented-out lines of code should be removed.(úŠû¥8á ï¹‘-
-bsquid:CommentedOutCodeLineE"<This block of commented-out lines of code should be removed.(öøƒÜ
-nsquid:CommentedOutCodeLine%"<This block of commented-out lines of code should be removed.(˜õ£åÿÿÿÿÿ8á ï¹‘-
-isquid:CommentedOutCodeLine+"<This block of commented-out lines of code should be removed.(úŠû¥8á ï¹‘-
-isquid:CommentedOutCodeLine)"<This block of commented-out lines of code should be removed.(úŠû¥8á ï¹‘-
-nsquid:CommentedOutCodeLine0"<This block of commented-out lines of code should be removed.(Œ¬ÇÛÿÿÿÿÿ8á ï¹‘-
-Qsquid:S1068"3Remove this unused "aircraftService" private field.(Ú×¾‚8Òºô¹‘-
-nsquid:CommentedOutCodeLine="<This block of commented-out lines of code should be removed.(Û¸·ýúÿÿÿÿ8Òºô¹‘-
-Isquid:S1481 "+Remove this unused "cessna" local variable.(Ù¼ûú8Òºô¹‘-
-Psquid:S1481!"-Remove this unused "aerostar" local variable.(–¿€™üÿÿÿÿ8Òºô¹‘-
-Msquid:S1481""*Remove this unused "piper" local variable.(ºÀ¿ûúÿÿÿÿ8Òºô¹‘-
-\squid:S1854""9Remove this useless assignment to local variable "piper".(ºÀ¿ûúÿÿÿÿ8Òºô¹‘-
-_squid:S1854!"<Remove this useless assignment to local variable "aerostar".(–¿€™üÿÿÿÿ8Òºô¹‘-
-Xsquid:S1854 ":Remove this useless assignment to local variable "cessna".(Ù¼ûú8Òºô¹‘-

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Data
 @Entity
@@ -26,5 +27,8 @@ public class Customer {
 
     @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "created_at")
+    private Date createdAt;
 
 }
